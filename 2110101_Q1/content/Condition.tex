@@ -1,0 +1,144 @@
+\section{Condition}
+
+\subsection{ประโยคเงื่อนไข}
+
+ประโยคเงื่อนไขคือประโยคที่จะคืนค่า \verb|True| หรือ \verb|False| โดย \verb|True| คือ จริง และ \verb|False| คือ เท็จ
+
+ประโยคเงื่อนไขสามารถเขียนได้โดยง่ายด้วย \verb|> < >= <=| แต่หากต้องการตรวจสอบว่าเท่ากับหรือไม่ต้องใช้ \verb|==| ไม่สามารถใช้ \verb|=| ตัวเดียวได้ เนื่องจาก \verb|=| เป็นการเอาค่าทางขวามาใส่ทางซ้าย
+
+ในการตรวจสอบว่าตัวแปรสองตัวมีค่าไม่เท่ากันหรือไม่ใช้ \verb|!=| ในการตรวจสอบ
+
+\begin{lstlisting}[language=Python]
+print(1 < 2) # True
+print(2 >= 3) # False
+a = 2
+b = 3
+print(a == b) # False
+print(a != b) # True
+print(a == 2) # True
+\end{lstlisting}
+
+ในใส่นิเสธ การกลับประโยคจากจริงเป็นเท็จ เท็จเป็นจริง หรือการ negation สามารถใช้คำสั่ง \verb|not|
+
+\begin{lstlisting}[language=Python]
+a = 1
+print(not (a == 1)) # False
+print(not (a > 1)) # True
+\end{lstlisting}
+
+ประโยคเงื่อนไขสามารถเขียนเป็นช่วงก็ได้
+
+\begin{lstlisting}[language=Python]
+a = 2
+print(1 <= a <= 3) # True
+print(-1 <= a <= 1) # False
+\end{lstlisting}
+
+ในการตรวจสอบว่าค่านั้น ๆ อยู่ใน List หรือไม่ใช้คำสั่ง \verb|in|
+
+\begin{lstlisting}[language=Python]
+l = [1, 2, 3, 4, 5]
+print(2 in l) # True
+print(7 in l) # False
+\end{lstlisting}
+
+การเปรียบเทียบ String จะเปรียบเทียบด้วยลำดับดังนี้
+
+\begin{enumerate}
+    \item ตัวอักษรตัวพิมพ์ใหญมีค่าน้อยกว่าตัวพิมพ์เล็ก
+    \item ตัวอักษรมีค่ามากน้อยเรียงตามภาษาอังกฤษ
+    \item หากเป็นตัวเลขมีค่าตามตัวนั้น ๆ
+    \item จะเปรียบเทียบทีละตัวจากซ้ายไปขวา
+    \item หากเปรียบเทียนไปเรื่อย ๆ จนมีฝั่งใดฝั่งหนึ่งไม่เหลือตัวอักษรให้พิจารณาแล้วจะให้ตัวที่หมดก่อนน้อยกว่า
+\end{enumerate}
+
+\begin{lstlisting}[language=Python]
+print("A" < "C") # True
+print("ABC" < "aA") # True
+print("bbbb" < "aaaa") # False
+\end{lstlisting}
+
+\subsection{การเชื่อมประโยคเงื่อนไข}
+
+ในการเชื่อมประโยคเงื่อนไขจะมีการ และ(AND) และ หรือ(OR) โดยหลักการเหมือนตรรกศาสตร์ คือ หากเป็นการ AND จะต้องจริงทั้งคู่ถึงจะจริง และ OR เป็นจริงเพียงฝั่งใดฝั่งหนึ่งก็พอ
+
+หลักการเขียน AND และ OR
+
+\begin{verbatim}
+CONDITION1 and CONDITION2
+CONDITION1 or CONDITION2
+\end{verbatim}
+
+\subsection{If}
+
+รูปแบบการเขียน If สามารถเขียนได้โดย
+
+\begin{verbatim}
+if CONDITION:
+    DO SOMETHING
+\end{verbatim}
+
+เมื่อ \verb|CONDITION| คือ เงื่อนไขที่ต้องการ และสังเกตว่าคำสั่งที่ต้องการทำเมื่อเงื่อนไขถูกจะถูก TAB มา 1 ครั้ง
+
+ประโยคเงื่อนไขแบบ If จะทำงานเมื่อเงื่อนไขที่ตั้งไว้ถูก โดยคำสั่งที่ต้องการทำเมื่อใช้คำสั่ง If 
+
+\begin{lstlisting}[language=Python]
+A = 3
+B = 2
+if A > B:
+    print("A > B")
+\end{lstlisting}
+
+แต่หากไม่ถูกจะไม่ทำอะไร
+
+\subsection{Else}
+
+รูปแบบการเขียน Else สามารถเขียนได้โดย 
+
+\begin{verbatim}
+if CONDITION:
+    DO SOMETHING
+else:
+    DO SOMETHING
+\end{verbatim}
+
+สังเกตว่าต้องมี If ขึ้นก่อนเสมอและสำหรับ 1 If มีได้เพียง 1 Else เท่านั้น
+
+หลักการทำงานของ Else คือหากเงื่อนไขใน If ไม่ถูกสามารใช้ Else มาเพื่อรองรับในกรณีที่ไม่ถูกได้
+
+\begin{lstlisting}[language=Python]
+A = 2
+B = 3
+if A > B:
+    print("A > B")
+else:
+    print("A < B")
+\end{lstlisting}
+
+\subsection{Elif}
+
+รูปแบบการเขียน Elif (else if) สามารถเขียนได้โดย 
+
+\begin{verbatim}
+if CONDITION:
+    DO SOMETHING
+elif CONDITION2:
+    DO SOMETHING
+else:
+    DO SOMETHING
+\end{verbatim}
+
+ในการใช้ Elif สามารถใช้ได้หลังมี If เท่านั้นและต้องอยู่ก่อน Else (ถ้ามี)
+
+Else if สามารถมีกี่ตัวก็ได้เหมือนเงื่อนไขรอง ๆ ลงมาจนกว่าจะถึง Else
+
+\begin{lstlisting}[language=Python]
+A = 3
+B = 3
+if A > B:
+    print("A > B")
+elif A == B:
+    print("A is equals to B")
+else:
+    print("A < B")
+\end{lstlisting}

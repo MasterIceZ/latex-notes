@@ -1,0 +1,201 @@
+\section{Input / Output}
+
+\subsection{Output}
+
+ในการ Output ออกมาทางหน้าจอจะใช้คำสั่ง \verb|print()|
+
+\begin{lstlisting}[language=Python]
+print('Hello, World!')
+\end{lstlisting}
+
+โดยหากใช้คำสั่ง \verb|print| หลายครั้งจะได้คำในคำสั่ง \verb|print| ออกมาคนละบรรทัดกัน
+
+\begin{lstlisting}[language=Python]
+print('Hello')
+print('Hello')
+\end{lstlisting}
+
+หากต้องการทำให้่อยู่บรรทัดเดียวกันใช้คำสั่ง \verb|end=''| มาต่อท้าย
+
+\begin{lstlisting}[language=Python]
+print('Hello', end='')
+print('World')
+\end{lstlisting}
+
+สังเกตว่าหากเปลี่ยนคำใน \verb|''| เป็นคำอื่น ๆ เช่น \verb|'*'| จะได้ \verb|Hello*World| ออกมาแทน
+
+สามารถใช้ \verb|,| ในการคั่นระหว่างสิ่งที่ต้องการแสดงออกมาได้่
+
+\begin{lstlisting}[language=Python]
+print('Hello', 'World') # Hello World
+\end{lstlisting}
+
+จะได้ \verb|Hello World| แต่หากต้องการใช้ตัวอักษรอื่นคั่นระหว่างแต่ละสิ่งที่ต้องการแสดงสามารใช้ \verb|sep='x'| โดย \verb|x| เปลี่ยนได้ตามต้องการ (โดยปกติแล้วเป็น Space)
+
+\begin{lstlisting}[language=Python]
+print('Hello', 'World', sep="*") # Hello*World
+\end{lstlisting}
+
+\subsection{การ Comment}
+
+ในการ Comment ในภาษา Python ใช้เครื่องหมาย \verb|#| (Sharp, ชาร์ป) ไว้ข้างหน้า
+
+\begin{lstlisting}[language=Python]
+print("hello")
+# print("hi")
+print("world")
+\end{lstlisting}
+
+\subsection{ตัวแปร Variable}
+
+ตัวแปร(เบื้องต้น) มีอยู่หลัก ๆ \verb|3| ชนิด คือ
+
+\begin{center}
+    \begin{tabular}{|c|c|}
+        \hline
+        ชนิดของตัวแปร & ชนิดของข้่อมูลที่เก็บ\\
+        \hline
+        \verb|int| & จำนวนเต็ม\\
+        \verb|float| & ทศนิยม\\
+        \verb|str| & ตัวอักษร (\verb|string|)\\
+        \hline
+    \end{tabular}
+\end{center}
+
+คำสั่ง \verb|type()| สามารถใช้ตรวจสอบชนิดของตัวแปรได้
+
+\begin{lstlisting}[language=Python]
+print(type(3))
+print(type("Test"))
+print(type(321.123))
+\end{lstlisting}
+
+ในการสร้างตัวแปรในภาษา Python นั้นสามารถเขียนในรูปแบบ
+
+\begin{verbatim}
+<VARIABLE_NAME> = <VALUE>
+\end{verbatim}
+
+ตัวอย่างเช่น
+
+\begin{lstlisting}[language=Python]
+a = 10
+b = "Hello"
+print(a, b) # 10 Hello
+\end{lstlisting}
+
+ซึ่ง Python เป็นภาษาแบบ Dynamic Type จึงสามารถเปลี่ยนชนิดของตัวแปรได้เรื่อย ๆ
+
+หลักการตั้งชื่อตัวแปรสามารถตั้งชื่อได้ด้วยตัวอักษร ตัวเลข หรือเครื่องหมาย \verb|_| (underscore) โดยตัวเลขไม่สามารถใช้เป็นตัวแรกได้่ และชื่อที่ตั้งต้องไม่ซ้ำกับ \href{https://www.w3schools.com/python/python_ref_keywords.asp}{reserved words}
+
+หลักการใช้ \verb|=| คือ \textcolor{red}{เอาค่าทางขวามาใส่ตัวแปรทางซ้าย}
+
+\begin{lstlisting}[language=Python]
+a = 3
+b = 4
+print(a, b) # 3 4
+a = b
+print(a, b) # 4 4 
+\end{lstlisting}
+
+\subsubsection{Type Casting}
+
+ในบางครั้งที่รับประกันได้่ว่าสามารถแปลงชนิดของตัวแปรได้สามารถทำการ Type Cast ได้โดยการเอาชนิดที่ต้องการมาครอบ
+
+\begin{lstlisting}[language=Python]
+a = "12"
+print(type(a)) # <class 'str'>
+a = int(a)
+print(type(a)) # <class 'int'>
+\end{lstlisting}
+
+\subsection{Input}
+
+ในการ Input จะใช้คำสั่ง \verb|input()| โดยจะรับมาทีละบรรทัด
+
+\begin{lstlisting}[language=Python]
+s = input()
+print("Input:", s)
+\end{lstlisting}
+
+\subsection{การดำเนินการบนจำนวนชนิดต่าง ๆ}
+
+สามารถใช้ตัวดำเนินการมาตรฐานได้เช่น \verb|+ - * / ()| และลำดับการทำงานของตัวดำเนินการทั้งหมดจะทำตามหลักคณิตศาสตร์ (คูณ-หาร/บวก-ลบ จากซ้ายไปขวา)
+
+\begin{lstlisting}[language=Python]
+a = 10
+b = 3
+print(a * b) # 30
+\end{lstlisting}
+
+\begin{remark}
+    \verb|/| จะเป็นการหารแบบได้ทศนิยมออกมาเสมอไม่ว่าจะเป็น \verb|int| หาร \verb|int| ก็ตาม
+\end{remark}
+
+การดำเนินการกับตัวแปรเดิมสามารถทำในรูปแบบสั้น ๆ ได้ เช่น
+
+\begin{lstlisting}[language=Python]
+a = 10
+a += 10 # a = a + 10
+a -= 2 # a = a - 2
+a *= 4 # a = a * 4
+a /= 2 # a = a / 2
+\end{lstlisting}
+
+และมีตัวดำเนินการที่ไม่คุ้นเคยเช่น การยกกำลัง การหารเอาเศษ(Modulo) และ การหารแบบไม่เอาเศษเลย(ปัดเศษลงทั้งหมด)
+
+\subsubsection{การยกกำลัง}
+
+การยกกำลังใช้ตัวดำนเนินการ \verb|**|
+
+\begin{lstlisting}[language=Python]
+print(10 ** 3) # 1000
+\end{lstlisting}
+
+\subsubsection{การหารเอาเศษ Modulo}
+
+การหารเอาเศษจะใช้ตัวดำเนินการ \verb|%|
+
+\begin{lstlisting}[language=Python]
+print(10 % 3) # 1
+print(10 % 4) # 2
+\end{lstlisting}
+
+\subsubsection{การหารแบบไม่เอาเศษและไม่เอาทศนิยม}
+
+การหารเอาเศษจะใช้ตัวดำเนินการ \verb|//|
+
+\begin{lstlisting}[language=Python]
+print(10 / 3)  # 3.3333333333333335
+print(10 // 3) # 3
+\end{lstlisting}
+
+\subsection{Math Module}
+
+ในภาษา Python จะมี Math Module ให้เรียกใช้เพื่อให้สามารถใช้คำสั่งทางคณิตศาสตร์ต่าง ๆ ได้ ก่อนการเรียกใช้จำเป็นจะต้อง \verb|import| เข้ามาก่อนด้วยการ
+\begin{lstlisting}[language=Python]
+import math
+\end{lstlisting}
+
+ตัวอย่างคำสั่งที่น่าสนใจ
+\begin{lstlisting}[language=Python]
+import math
+
+print(math.sin(0))
+print(math.e, math.pi)
+print(math.sqrt(9))
+print(math.log(4, 2)) # math.log(VALUE, BASE)
+\end{lstlisting}
+
+\begin{remark}
+    หน่วยของ \verb|math.sin()| และตรีโกณต่าง ๆ เป็น radian หากต้องการแปลงองศาเป็น radian ให้ใช้ \verb|math.radians(degree)| ใส่ใน \verb|math.sin()|
+\end{remark}
+
+การหารากที่ \(n\) ของ $x$ สามารถเขียนในรูป
+\[
+    \sqrt[n]{x} = x^{\frac{1}{n}}
+\]
+จึงสามารถใช้การยกกำลังเศษส่วนแทนได้
+\begin{lstlisting}[language=Python]
+print(1000 ** (1 / 3))
+\end{lstlisting}

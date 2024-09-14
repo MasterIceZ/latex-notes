@@ -1,0 +1,204 @@
+\section{String \& List}
+
+\subsection{String}
+
+String คือสายอักขระ (ตัวแปรประเภท \verb|str|) เช่น "123", "Hello"
+
+\subsubsection{String Operations}
+
+การหาความยาวใช้่คำสั่ง \verb|len()|
+
+\begin{lstlisting}[language=Python]
+s = "Hi"
+print(len(s)) # 2
+t = "Hello"
+print(len(t)) # 5
+\end{lstlisting}
+
+การต่อ String 2 Strings เข้าด้วยกันใช้การบวกได้เลย
+
+\begin{lstlisting}[language=Python]
+s = "123" + "321"
+print(s) # 123321
+\end{lstlisting}
+
+ในการต่อกันซ้ำ ๆ สามารถใช้คำสั่ง \verb | * n| เมื่อ \verb|n| เป็นจำนวนครั้งได้
+
+\begin{lstlisting}[language=Python]
+a = "51" * 10
+print(a) # 51515151515151515151
+\end{lstlisting}
+
+\subsubsection{String Indexing}
+
+String เก็บตัวอักษรหลายตัวก็จริง แต่จริง ๆ แล้ว String สร้างกล่องขึ้นมาจำนวนเท่ากับความยาวเพื่อให้่แต่ละกล่องเก็บตัวอักษร 1 ตัวเท่านั้น
+
+เราจึงสามารถใช้ประโยชน์จากสิ่งนี้ในการเรียกแค่ตัวอักษรบางตัวของ String ได้ โดยรูปแบบการเรียกจะใช้
+
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+         \hline
+         String & P & y & t & h & o & n\\
+         \hline
+         Index (Forward) & 0 & 1 & 2 & 3 & 4 & 5\\
+         \hline
+         Index (Backward) & -6 & -5 & -4 & -3 & -2 & -1\\
+         \hline
+    \end{tabular}
+\end{center}
+
+สังเกตว่า Index แบบ Forward จะมีค่าตั้งแต่ \verb|0| ถึง \verb|len(s) - 1| เมื่อ \verb|s| คือสตริงและ Backward มีค่าตั้งแต่ \verb|-len(s)| ถึง \verb|-1|
+
+ในการเรียก Index จะใช้ \verb|[i]| เมื่อ \verb|i| คือ Index ที่ต้องการเรียก
+
+\begin{lstlisting}[language=Python]
+a = "Python"
+print(a[0], a[-4]) # P t
+\end{lstlisting}
+
+\subsubsection{String Slicing}
+
+การ Slicing คือการ ``หั่น" String ออกมาด้วยวิธีการคล้าย ๆ วน Loop โดยมีรูปแบบการเขียนคือ \verb|[start:stop:step]| โดยการเลือกของ String จะเลือกจาก Index \verb|start| ทุก ๆ \verb|step| ตัวไปจนกว่าจะเท่ากับหรือมากกว่า \verb|stop|
+
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+         \hline
+         String & P & y & t & h & o & n\\
+         \hline
+         Index (Forward) & 0 & 1 & 2 & 3 & 4 & 5\\
+         \hline
+         Index (Backward) & -6 & -5 & -4 & -3 & -2 & -1\\
+         \hline
+    \end{tabular}
+\end{center}
+
+โดยหากเว้น \verb|start| ไว้จะถือว่าเป็น \verb|0|, เว้น \verb|stop| ไว้จะถือว่าเป็นขนาดของ String, เว้น \verb|step| ไว้จะถือว่าเป็น \verb|1|
+
+\begin{lstlisting}[language=Python]
+a = "Python"
+print(a[0:3:1]) # Pyt
+print(a[1::2]) # yhn
+print(a[::3]) # Ph
+\end{lstlisting}
+
+แต่ถ้าค่า \verb|step| ติดลบ หากเว้น \verb|start| ไว้จะถือว่าเป็น \verb|-1|, เว้น \verb|stop| ไว้จะถือว่าเป็นขนาดของ \verb|-len(s)-1| เมื่อ \verb|s| คือ String ที่ต้องการ Slice
+
+\begin{lstlisting}[language=Python]
+a = "Python"
+print(a[::-1]) # nohtyP
+print(a[-1:-4:-2]) # nh
+\end{lstlisting}
+
+\subsection{List}
+
+List คือกล่องเก็บข้อมูลที่สามารถเก็บข้อมูลหลาย ๆ ชนิดไว้ได้
+
+\subsubsection{การสร้าง List}
+
+การสร้่าง List เปล่าไม่มีอะไรเลย สามารถทำได้โดย
+
+\begin{lstlisting}[language=Python]
+l = list()
+# or
+l = []
+\end{lstlisting}
+
+การสร้่าง List แบบมีบางอย่างอยู่ข้างในตั้งแต่แรก สามารถทำได้โดย
+
+\begin{lstlisting}[language=Python]
+l = [3, "hi", 12.3]
+\end{lstlisting}
+
+\subsubsection{List Operations}
+
+\textcolor{cyan}{คำสั่งส่วนมากคล้าย String}
+
+การหาความยาวใช้่คำสั่ง \verb|len()|
+
+\begin{lstlisting}[language=Python]
+l = [3, "hi", 12.3]
+print(len(l)) # 3
+\end{lstlisting}
+
+การต่อ List 2 Lists เข้าด้วยกันใช้การบวกได้เลย
+
+\begin{lstlisting}[language=Python]
+s = [3, "hi", 12.3] + [1, "t"]
+print(s) # [3, "hi", 12.3, 1, "t"]
+\end{lstlisting}
+
+ในการต่อกันซ้ำ ๆ สามารถใช้คำสั่ง \verb | * n| เมื่อ \verb|n| เป็นจำนวนครั้งได้
+
+\begin{lstlisting}[language=Python]
+a = [3] * 5
+print(a) # [3, 3, 3, 3, 3]
+\end{lstlisting}
+
+\subsubsection{List Indexing}
+
+List จะเก็บข้อมูลคล้าย ๆ กับ String โดยจะเก็บเป็นกล่อง ๆ 
+
+\begin{center}
+    \begin{tabular}{|c|c|c|c|c|c|c|}
+         \hline
+         List & 31 & ``Hello" & 123.3 & ``Test" & 3.14 & 999\\
+         \hline
+         Index (Forward) & 0 & 1 & 2 & 3 & 4 & 5\\
+         \hline
+         Index (Backward) & -6 & -5 & -4 & -3 & -2 & -1\\
+         \hline
+    \end{tabular}
+\end{center}
+
+หลักการใช้เหมือนกับ String
+
+\begin{lstlisting}[language=Python]
+l = [31, "Hello", 123.3, "Test", 3.14, 99]
+print(a[2]) # Hello
+\end{lstlisting}
+
+\subsubsection{List Slicing}
+
+\textit{เหมือนกับ String}
+
+\subsubsection{การเปลี่ยนค่าข้างใน List}
+
+สามารถใช้หลักการของ \verb|=| ได้เลย
+
+\begin{lstlisting}[language=Python]
+l = [31, "Hello", 123.3, "Test", 3.14, 99]
+l[1] = -1
+print(l) # [31, -1, 123.3, "Test", 3.14, 99]
+\end{lstlisting}
+
+\begin{remark}
+    ตัวแปรประเภท String ไม่สามารถแก้ไขค่าในช่องใดช่องหนี่งเหมือน List ได้
+\end{remark}
+
+\subsubsection{การใส่ค่าเพิ่มใน List}
+
+การใส่ค่าเข้าไปเพิ่มใน List จะใช้ method \verb|append()| เพื่อใส่ค่าเข้าไป
+
+\begin{lstlisting}[language=Python]
+l = [1, "T"]
+l.append('12')
+print(l) # [1, 'T', '12']
+\end{lstlisting}
+
+\subsection{การแยก String ออกเป็น List}
+
+ใช้่ method \verb|split()| ของ String เพื่อทำการตัด String ออกมาเป็น List โดยจะตัดด้วย Space โดยจะได้ List of Strings ออกมา
+
+\begin{lstlisting}[language=Python]
+s = "Hello World Hi 1234"
+l = s.split()
+print(l) # ["Hello", "World", "Hi", "1234"]
+\end{lstlisting}
+
+แต่หากต้องการตัดด้วยตัวอักษรอื่น ๆ ให้ใส่ตัวนั้น ๆ ในวงเล็บ
+
+\begin{lstlisting}[language=Python]
+s = "Hello*World*Hi"
+l = s.split("*")
+print(l) # ["Hello", "World", "Hi"]
+\end{lstlisting}
