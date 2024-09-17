@@ -1,0 +1,212 @@
+%! TEX program = xelatex
+\documentclass[11pt,a4paper,twocolumn]{article}
+\usepackage[a4paper,margin=0.5in]{geometry}
+\usepackage{fancyvrb}
+% \usepackage[localfonts=true]{tenth}
+\usepackage[localfonts=true]{tenth-borworntat}
+
+\renewcommand{\pageheader}{\sffamily\textsb{Python(Q1)} — โดย บวรทัต เด่นดำรงกุล}
+\title{Python for Engineering Students (Q1)}
+\author{บวรทัต เด่นดำรงกุล \vspace{-5ex}}
+\date{}
+\setlength{\parindent}{0pt}
+
+
+\begin{document}
+
+% \maketitle
+\thispagestyle{titlepage}
+\setstretch{1}
+
+\section*{I/O}
+\vspace{-1ex}
+
+print() บรรทัดเดียวกัน
+\vspace{-2.5ex}
+\begin{verbatim}
+print("Hello", end="")
+print("World")
+\end{verbatim}
+\vspace{-1ex}
+
+format string
+\vspace{-2.5ex}
+\begin{verbatim}
+a = "Hello"
+b = 32
+print("{} {}".format(a, b))
+\end{verbatim}
+\vspace{-1ex}
+
+รับ Input เป็นจำนวนเต็ม
+\vspace{-2.5ex}
+\begin{verbatim}
+n = int(input())
+\end{verbatim}
+\vspace{-1ex}
+
+หารเอาแต่เศษ \verb|%|\\
+หารไม่เอาเศษ (ปัดทิ้งหมด) \verb|//|\\
+ยกกำลัง \verb|**|
+\vspace{-1ex}
+
+\vspace{-2ex}
+\section*{Math}
+\vspace{-1ex}
+
+Import
+\vspace{-2.5ex}
+\begin{verbatim}
+import math
+\end{verbatim}
+\vspace{-1ex}
+
+ฟังก์ชัน (หน่วยของมุมเป็น radian)
+\vspace{-2.5ex}
+\begin{verbatim}
+print(math.e, math.pi)
+print(math.floor(1.2), math.ceil(1.2))
+print(math.sin(math.radians(45)))
+print(math.log(12, 2))
+# log 12 base 2
+\end{verbatim}
+\vspace{-1ex}
+
+\vspace{-2ex}
+\section*{String/List}
+\vspace{-1ex}
+
+สร้าง List
+\vspace{-2.5ex}
+\begin{verbatim}
+l = []
+\end{verbatim}
+\vspace{-1ex}
+
+คำสั่งที่เหมือนกัน
+\vspace{-2.5ex}
+\begin{verbatim}
+print(len(s)) # get length
+a = "BB" + "AAA" # a = "BBAAA"
+b = [1] * 3 # b = [1, 1, 1]
+\end{verbatim}
+\vspace{-1ex}
+
+List \& String ตำแหน่งเริ่มที่ \verb|0|
+\vspace{-2.5ex}
+\begin{verbatim}
+a = [5, 2, 1, 3]
+print(a[1]) # 2
+\end{verbatim}
+\vspace{-1ex}
+
+เพิ่มของใน List
+\vspace{-2.5ex}
+\begin{verbatim}
+l = []
+l.append(1) # l =[1]
+\end{verbatim}
+\vspace{-1ex}
+
+ตัด String ด้วยตัวอักษร
+\vspace{-2.5ex}
+\begin{verbatim}
+s = "Hi TT 2"
+print(s.split(" ")) # ['Hi', 'TT', '2']
+\end{verbatim}
+\vspace{-1ex}
+
+Slicing เริ่มที่ \verb|START| จบที่ \verb|STOP| เพิ่มที่ละ \verb|STEP|
+\vspace{-2.5ex}
+\begin{verbatim}
+s = "Grader1"
+print(s[1:7:2]) # rdr [START:STOP:STEP]
+\end{verbatim}
+\vspace{-1ex}
+
+\vspace{-2ex}
+\section*{Condition}
+\vspace{-1ex}
+
+ตัวอย่างการใช้
+\vspace{-2.5ex}
+\begin{verbatim}
+if x == 1:
+    print("x equals 1")
+elif x >= 2:
+    print("x is more than 1")
+else:
+    print("x is less than 1")
+\end{verbatim}
+\vspace{-1ex}
+
+เชื่อมประโยคเงื่อนไข \verb|and| กับ \verb|or|
+\vspace{-2.5ex}
+\begin{verbatim}
+print(12 >= 1 and 12 < 1) # False
+print(12 >= 1 or 12 < 1) # True
+\end{verbatim}
+\vspace{-1ex}
+
+\vspace{-2ex}
+\section*{Loop}
+\vspace{-1ex}
+
+\verb|while| ใช้ง่ายสุด การใช้เหมือน \verb|if| ทำจนกว่าเงื่อนไขจะผิด
+\vspace{-2.5ex}
+\begin{verbatim}
+i = 1
+while i <= 10:
+    print(i)
+    i += 1
+\end{verbatim}
+\vspace{-1ex}
+
+\verb|for| ใช้กับ \verb|range| มี \verb|START|, \verb|STOP|, \verb|STEP| เหมือน slicing
+\vspace{-2.5ex}
+\begin{verbatim}
+for i in range(1, 11, 2):
+    print(i)
+\end{verbatim}
+\vspace{-1ex}
+
+\verb|for| แบบใช้กับ List \& String
+\vspace{-2.5ex}
+\begin{verbatim}
+s = "Hello"
+for x in s:
+    print(x)
+\end{verbatim}
+\vspace{-1ex}
+
+\vspace{-2ex}
+\section*{Trick}
+\vspace{-1ex}
+
+Reverse String \& List
+\vspace{-2.5ex}
+\begin{verbatim}
+l = l[::-1]
+\end{verbatim}
+\vspace{-1ex}
+
+รับ Input บรรทัดละหลายตัว (ได้ List)
+\vspace{-2.5ex}
+\begin{verbatim}
+l = [x for x in input().split()]
+\end{verbatim}
+\vspace{-1ex}
+
+แปลง Type เอา ชนิดของตัวแปรที่อยากได้ครอบ
+\vspace{-2.5ex}
+\begin{verbatim}
+a = "1234.12"
+f = float(a) # convert string to float
+\end{verbatim}
+\vspace{-1ex}
+
+\begin{center}
+\textbf{GRADER 1 TwT}
+\end{center}
+
+\end{document}
