@@ -1,0 +1,122 @@
+\section{Merging Data Structure}
+
+\begin{frame}
+\frametitle{Merging Data Structure}
+Sometimes, we want to merge 2 data structures together
+\begin{block}{Problem: \href{https://cses.fi/problemset/task/1139}{Distinct Colors}}
+You are given a rooted tree consisting of $n$ nodes. The nodes are numbered $1, 2, \ldots, n$ and node $1$ is the root. Each node has a color.\\
+For each node, determine the number of distinct colors present in its subtree.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Merging Data Structure}
+Naive Solution: we can DFS and count distinct color of each subtree with sets.
+
+\begin{lstlisting}[language=C++, basicstyle=\small]
+void dfs(int u, int p) {
+    for(auto v: adj[u]) {
+        if(v == p) {
+            continue;
+        }
+        dfs(v, u);
+        merge(u, v);
+    }
+}
+\end{lstlisting}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Merging Data Structure}
+
+By merging, we can easily do something like:
+
+\begin{lstlisting}[language=C++, basicstyle=\small]
+set<int> color[N];
+void merge(int u, int v) {
+    for(auto e: color[v]) {
+        color[u].emplace(e);
+    }
+}
+\end{lstlisting}
+The function above has a time complexity $\mathcal{O}(n\log(n))$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Merging Data Structure}
+\begin{center}
+    \includegraphics[width=7cm]{TLE.png}
+\end{center}
+As you can see, it's \textcolor{red}{TLE} because the running time of the algorithm is $\mathcal{O}(n^2 \log(n))$
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Merging Data Structure}
+We have to use the idea of ``merging small to large". So, we can modify the \textit{merge} function to
+
+\begin{lstlisting}[language=C++, basicstyle=\small]
+void merge(set<int> &a, set<int> &b) {
+    if(a.size() < b.size()) {
+        swap(a, b);
+    }
+    for(auto e: b) {
+        a.emplace(e);
+    }
+}
+\end{lstlisting}
+
+By swapping the sets, if we print out the set's size as the answer, the result would be incorrect because the subtrees' sets have been swapped. Therefore, we must maintain the actual size of each set.
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Merging Data Structure}
+By swapping the sets, if we print out the set's size as the answer, the result would be incorrect because the subtrees' sets have been swapped. Therefore, we must maintain the actual size of each set.
+
+\begin{lstlisting}[language=C++, basicstyle=\small]
+set<int> color[N];
+int sz[N];
+void dfs(int u, int p) {
+    for(auto v: adj[u]) {
+        if(v == p) {
+            continue;
+        }
+        dfs(v, u);
+        merge(color[u], color[v]);
+    }
+    sz[u] = color[u].size();
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}
+\frametitle{Merging Data Structure}
+\begin{center}
+    \includegraphics[width=7cm]{AC.png}
+\end{center}
+YAY, we got \textcolor{green}{AC}. Why?\\
+\href{https://gist.github.com/MasterIceZ/06c5808413daddb0e50bde4f12666fd3}{(Source Code)}
+\end{frame}
+
+\begin{frame}
+\frametitle{Merging Data Structure}
+Why ``merge small to large" is work in this situation?
+
+\begin{block}{Claim}
+Each element has to move at most $\mathcal{O}(log(n))$ times.
+\end{block}
+
+\textit{Proof}: When we are trying to merge set $A$ to set $B$ ($|A| \le |B|$). Then, the new set $C$'s size is at least $|A| + |A| = 2|A|$. Thus, we move the element $e$ for $k$ times. $e$ will be moved to a set that have size at least $2^k$. Since the maximum size of the set is $n$ (at root). So each element will be moved at most $\mathcal{O}(\log(n))$ times.
+
+\begin{equation}
+\nonumber
+\begin{aligned}
+    n &\ge 2^k\\
+    \log(n) &\ge k
+\end{aligned}
+\end{equation}
+
+\vfill
+
+Running time of the algorithm is $\mathcal{O}(n \log^2(n))$
+\end{frame}

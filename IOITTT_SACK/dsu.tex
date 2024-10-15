@@ -1,0 +1,34 @@
+\section{Disjoint Set Union}
+
+\begin{frame}
+\frametitle{Disjoint Set Union}
+\begin{block}{External Slides}
+\centering
+\url{https://docs.google.com/presentation/d/1EZFT15Zi75OaoWlCaeDZg9HgTD10hnlffb_pY4ZOemw/edit?usp=sharing}
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Disjoint Set Union}
+\begin{block}{Claim}
+Union by Rank takes $O(log(n))$ time per query.
+\end{block}
+\textit{Intuition}:
+By creating tree with 
+\begin{itemize}
+    \item rank $2$ there should be created from tree with $2$ rank $1$ trees (requires $2$ vertices)\\
+    \item rank $3$ there should be created from tree with $2$ rank $2$ trees (requires $4$ vertices)\\
+    \item \dots
+    \item rank $n$ there should be create from tree with $2$ rank $n-1$ trees (requires $2^{n - 1}$ vertices)
+\end{itemize}
+
+We just have $n$ vertices so that the rank of merged tree will not exceed $log(n)$. So, naive union find will run in $O(log(n))$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Disjoint Set Union}
+\begin{block}{Claim}
+Union by Size takes $O(log(n))$ time per query.
+\end{block}
+\textit{Intuition}: \textit{Similar to union by rank}
+\end{frame}
