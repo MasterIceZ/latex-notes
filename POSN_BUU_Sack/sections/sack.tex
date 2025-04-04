@@ -1,0 +1,256 @@
+\section{Sack Technique}
+
+\begin{frame}
+\frametitle{Sack Technique}
+\textit{Again...}
+\begin{block}{Problem: \href{https://cses.fi/problemset/task/1139}{Distinct Colors}}
+You are given a rooted tree consisting of $n$ nodes. The nodes are numbered $1, 2, \ldots, n$ and node $1$ is the root. Each node has a color.\\
+For each node, determine the number of distinct colors present in its subtree.
+\end{block}
+\end{frame}
+
+\begin{frame}
+\frametitle{Sack Technique}  
+Sack technique can ``reuse the data structure" while ``merge small into large" technique requires lots of data structure.
+\end{frame}
+
+\begin{frame}
+\frametitle{Sack Technique}  
+\Large Terminology
+
+\normalsize
+\begin{itemize}
+    \item ``Heavy Child" is a child vertex with the largest subtree size. If there are multiple, pick any.
+    \item ``Light Child" is a child vertex which is not a heavy child.
+    \item ``Light Edge" is a edge between light child $v$ and its parent $u$.
+\end{itemize}
+
+\medskip
+
+\textbf{Interesting Fact}: Each time we move via a light edge, the subtree size decreases by at least half. Since the tree has $N$
+N nodes, we can take at most $log(N)$ light edge jumps before reaching the root.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sack Technique}  
+Heavy child can be easily find by DFS.
+
+\begin{lstlisting}[language=C++, basicstyle=\small]
+int sz[N], heavy[N];
+void dfs(int u, int p) {
+    sz[u] = 1;
+    for(auto v: adj[u]) {
+        if(v == p) {
+            continue;
+        }
+        dfs(u, v);
+        sz[u] += sz[v];
+        if(sz[v] > sz[heavy[u]]) {
+            heavy[u] = v;
+        }
+    }
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sack Technique}  
+After we calculate each subtree's size, we try to solve the problem. By using this algorithm:
+
+\begin{small}
+\begin{verbatim}
+SACK(u, p, deleting):
+    FOR light child v of u:
+        SACK(v, u, true)
+    IF u is not a leaf:
+        SACK(heavy, u, false) 
+    INSERT(VAL(u))
+    FOR light child v of u:
+        FOR x in subtree v:
+            INSERT(VAL(x))
+    // MEMORIZE ANSWER HERE
+    IF deleting: // u is light child
+        FOR v in subtree u:
+            DELETE(VAL(v))
+\end{verbatim}
+\end{small}
+
+Note: To iterate through every vertices in each subtree, there is a famous approach called \href{https://en.wikipedia.org/wiki/Euler_tour_technique}{``Euler Tour Technique"}.
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sack Technique}  
+
+\begin{small}
+\begin{verbatim}
+SACK(u, p, deleting):
+    FOR light child v of u:
+        SACK(v, u, true)
+    IF u is not a leaf:
+        SACK(heavy, u, false) 
+    INSERT(VAL(u))
+    FOR light child v of u:
+        FOR x in subtree v:
+            INSERT(VAL(x))
+    // MEMORIZE ANSWER HERE
+    IF deleting: // u is light child
+        FOR v in subtree u:
+            DELETE(VAL(v))
+\end{verbatim}
+\end{small}
+
+First, we define the function above to solve this problem. The meaning of this function is: ``We are considering the subtree rooted at $u$, which has parent $p$, and \verb|deleting| is a variable that determines whether the updated values from this subtree need to be deleted or not."
+    
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sack Technique}  
+
+\begin{small}
+\begin{verbatim}
+SACK(u, p, deleting):
+    FOR light child v of u:
+        SACK(v, u, true)
+    IF u is not a leaf:
+        SACK(heavy, u, false) 
+    INSERT(VAL(u))
+    FOR light child v of u:
+        FOR x in subtree v:
+            INSERT(VAL(x))
+    // MEMORIZE ANSWER HERE
+    IF deleting: // u is light child
+        FOR v in subtree u:
+            DELETE(VAL(v))
+\end{verbatim}
+\end{small}
+
+We have to delete the updated data of vertex $u$ when $u$ is light child of $p$. In the other hand, we do not delete the updated data from vertex $u$ when $u$ is the heavy child of $p$.
+    
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sack Technique}  
+
+\begin{small}
+\begin{verbatim}
+SACK(u, p, deleting):
+    FOR light child v of u:
+        SACK(v, u, true)
+    IF u is not a leaf:
+        SACK(heavy, u, false) 
+    INSERT(VAL(u))
+    FOR light child v of u:
+        FOR x in subtree v:
+            INSERT(VAL(x))
+    // MEMORIZE ANSWER HERE
+    IF deleting: // u is light child
+        FOR v in subtree u:
+            DELETE(VAL(v))
+\end{verbatim}
+\end{small}
+
+Since we did not delete the heavy child's data, the remaining data to update includes the root of the subtree ($u$) and the data of all children that are not part of the heavy child's subtree.
+    
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sack Technique}  
+
+\begin{small}
+\begin{verbatim}
+SACK(u, p, deleting):
+    FOR light child v of u:
+        SACK(v, u, true)
+    IF u is not a leaf:
+        SACK(heavy, u, false) 
+    INSERT(VAL(u))
+    FOR light child v of u:
+        FOR x in subtree v:
+            INSERT(VAL(x))
+    // MEMORIZE ANSWER HERE
+    IF deleting: // u is light child
+        FOR v in subtree u:
+            DELETE(VAL(v))
+\end{verbatim}
+\end{small}
+
+Now that all the data is inserted, we can store the result in an array. Then, if the subtree's data needs to be deleted, we can simply remove it from the data structure.
+    
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sack Technique}  
+
+\begin{small}
+\begin{verbatim}
+SACK(u, p, deleting):
+    FOR light child v of u:
+        SACK(v, u, true)
+    IF u is not a leaf:
+        SACK(heavy, u, false) 
+    INSERT(VAL(u))
+    FOR light child v of u:
+        FOR x in subtree v:
+            INSERT(VAL(x))
+    // MEMORIZE ANSWER HERE
+    IF deleting: // u is light child
+        FOR v in subtree u:
+            DELETE(VAL(v))
+\end{verbatim}
+\end{small}
+
+In this approach, instead of using set or map as a data structure to count distinct colors, we can just use array to store the data so running time of inserting, erasing, and querying is $\mathcal{O}(1)$.
+    
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Sack Technique}  
+
+\begin{small}
+\begin{verbatim}
+SACK(u, p, deleting):
+    FOR light child v of u:
+        SACK(v, u, true)
+    IF u is not a leaf:
+        SACK(heavy, u, false) 
+    INSERT(VAL(u))
+    FOR light child v of u:
+        FOR x in subtree v:
+            INSERT(VAL(x))
+    // MEMORIZE ANSWER HERE
+    IF deleting: // u is light child
+        FOR v in subtree u:
+            DELETE(VAL(v))
+\end{verbatim}
+\end{small}
+
+\vfill
+
+\href{https://gist.github.com/MasterIceZ/a3d830109208088d93a5a0f788014e18}{(Source Code)}
+    
+\end{frame}
+
+\begin{frame}
+\frametitle{Sack Technique}  
+
+\textbf{Number of Insertion}
+
+\begin{itemize}
+    \item Every vertex $u$ have to be inserted $1$ time when we call SACK(u).
+    
+    \item Every time we try to insert $x$ in subtree $v$ which is light child of $u$. When SACK(u) is called, the subtree size of $u$ have to be at least 2 times of the size of subtree $v$.
+\end{itemize}
+
+Thus, each vertex will be inserted at most $1 + \lfloor \log(n) \rfloor$
+
+\textbf{Number of Deletion}:
+Number of deletion of each vertex is always not exceed the number of insertion which is $1 + \lfloor \log(n) \rfloor$
+
+\textbf{Number of Query}:
+Query function of the data structure is called exactly $n$ times.
+
+Since the query of this data structure is $\mathcal{O}(1)$. So, the running time of the algorithm is $\mathcal{O}(n\log{n})$
+
+\end{frame}

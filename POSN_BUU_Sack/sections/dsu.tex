@@ -1,0 +1,185 @@
+\section{Disjoint Set Union}
+
+\begin{frame}
+\frametitle{Disjoint Set Union}
+\begin{block}{Problem: Disjoint Set Union}
+    Are vertices $u$ and $v$ in the same connected component?
+\end{block}
+
+\begin{center}
+\begin{tikzpicture}
+[  
+    level 1/.style={sibling distance=25mm},
+    level 2/.style={sibling distance=15mm},
+    edge from parent/.style={thick}
+]
+    % Left tree (red)
+    \begin{scope}[edge from parent/.style={draw=red}]
+        \node [draw, circle, red] {1}
+            child {node [draw, circle, red] {3}}
+            child {
+                node [draw, circle, red] {2}
+                child {node [draw, circle, red] {4}}
+            };
+    \end{scope}
+    
+    % Right tree (orange)
+    \begin{scope}[edge from parent/.style={draw=orange}]
+        \node [draw, circle, orange] at (6,0) {5}
+            child {
+                node [draw, circle, orange] {7}
+                child {node [draw, circle, orange] {6}}
+                child {node [draw, circle, orange] {8}}
+            };
+    \end{scope}
+\end{tikzpicture}
+\end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Disjoint Set Union}
+
+We can just DFS!
+
+\begin{lstlisting}[language=C++, basicstyle=\small]
+int a, b;
+bool reach_b = false;
+void dfs(int u, int p) {
+    if(u == b) {
+        reach_b = true;
+    }
+    for(auto v: adj[u]) {
+        if(v == p) {
+            continue;
+        }
+        dfs(v, u);
+    }
+}
+// ...
+dfs(a, 0);
+\end{lstlisting}
+
+Time Complexity: $\mathcal{O}(V + E)$
+\end{frame}
+
+\begin{frame}
+\frametitle{Disjoint Set Union}
+
+It quite slow... How about changing the adjacency list to an array.
+
+\begin{block}{Definition: Parent Array}
+    parent[u] := direct parent of vertex $u$ but if $u$ has no parent parent[u] will store itself.
+\end{block}
+
+\begin{center}
+\begin{tikzpicture}
+[  
+    level 1/.style={sibling distance=25mm},
+    level 2/.style={sibling distance=15mm},
+    edge from parent/.style={thick}
+]
+    \begin{scope}[edge from parent/.style={draw=red}]
+        \node [draw, circle, red] {1}
+            child {node [draw, circle, red] {3}}
+            child {
+                node [draw, circle, red] {2}
+                child {node [draw, circle, red] {4}}
+            };
+    \end{scope}
+    
+    \begin{scope}[edge from parent/.style={draw=orange}]
+        \node [draw, circle, orange] at (6,0) {5}
+            child {
+                node [draw, circle, orange] {7}
+                child {node [draw, circle, orange] {6}}
+                child {node [draw, circle, orange] {8}}
+            };
+    \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tabular}{|c||c|c|c|c|c|c|c|c|}
+    \hline
+    index & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+    \hline
+    \hline
+    parent & 1 & 1 & 1 & 2 & 5 & 7 & 5 & 7\\
+    \hline
+\end{tabular}
+\end{center}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Disjoint Set Union}
+\begin{center}
+\begin{tabular}{|c||c|c|c|c|c|c|c|c|}
+    \hline
+    index & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+    \hline
+    \hline
+    parent & 1 & 1 & 1 & 2 & 5 & 7 & 5 & 7\\
+    \hline
+\end{tabular}
+\end{center}
+
+So, we can easily write \verb|find_root| function to find the root of component.
+
+\begin{lstlisting}[language=C++, basicstyle=\small]
+int parent[N];
+int find_root(int u) {
+    if(u == parent[u]) {
+        return u;
+    }
+    return find_root(parent[u]);
+}
+\end{lstlisting}
+
+Time Complexity: $\mathcal{O}(V)$
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Disjoint Set Union}
+\begin{center}
+\begin{tabular}{|c||c|c|c|c|c|c|c|c|}
+    \hline
+    index & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+    \hline
+    \hline
+    parent & 1 & 1 & 1 & 2 & 5 & 7 & 5 & 7\\
+    \hline
+\end{tabular}
+\end{center}
+
+Or we can just use while loop!
+
+\begin{lstlisting}[language=C++, basicstyle=\small]
+int parent[N];
+int find_root(int u) {
+    while(u != parent[u]) {
+        u = parent[u];
+    }
+    return u;
+}
+\end{lstlisting}
+
+Time Complexity: $\mathcal{O}(V)$
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Disjoint Set Union}
+It will be very slow if height of the tree is large.
+
+\begin{center}
+\begin{verbatim}
+    1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10
+\end{verbatim}
+\end{center}
+
+By calling \verb|find_root(10)| is \textcolor{red}{very slow}! So, we have to try to optimize this!
+
+\end{frame}
+

@@ -1,0 +1,70 @@
+\documentclass{beamer}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{pdfpages}
+
+\usepackage[natbib=true,style=authoryear,backend=bibtex,useprefix=true]{biblatex}
+\addbibresource{ref.bib}
+
+
+\graphicspath{ {./imgs/} }
+
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\title[Merge Small to Large] %optional
+{Merge Small to Large}
+
+\author[Borworntat Dendumrongkul] % (optional)
+{Borworntat Dendumrongkul}
+
+\institute[IOITTT] % (optional)
+{
+  IOI Thailand Task Team
+}
+
+\date{}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Advertisement?}
+\textit{Note}: This slide is adapted from my IPST Camp slides. This slide has more topics.
+
+\medskip
+
+If you are interested, you can watch the video of my past lecture here: \href{https://youtu.be/Fzr-l6ZpTNE?si=DK6dO0cq5Plyu-EF}{YouTube}.
+\end{frame}
+
+\begin{frame}
+\frametitle{Table of Contents}
+\tableofcontents
+\end{frame}
+
+\AtBeginSection[]
+{
+  \begin{frame}
+    \frametitle{Table of Contents}
+    \tableofcontents[currentsection]
+  \end{frame}
+}
+
+\input{sections/dsu}
+\input{sections/pathcompress}
+\input{sections/dsu_on_tree}
+\input{sections/amogus}
+% \input{dsu_proof}
+\input{sections/setmap}
+\input{sections/sack}
+\input{sections/jumpland}
+% \input{lomsat}
+\input{prob}
+
+\input{ref}
+
+\end{document}
